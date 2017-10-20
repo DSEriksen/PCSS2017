@@ -7,23 +7,35 @@ import java.util.*;
 public class Client {
 	
 	//Attributes
-	Socket socket;
-	String username;
+	final int PORT = 3000;
+	final String defaultHost = "localhost";
+	private Socket socket;
+	private String username;
+	private InputStream input = null;
 	
 	//Constructor
 	public Client(){
-		
+		username = null;
+		//create socket
 		try{
-		socket = new Socket("localhost", 3000);
-		}catch(Exception e){}
+		socket = new Socket(defaultHost, PORT);
+		}catch(IOException e){
+			//todo handle exception
+		}
+		//create input stream
+		try{
+			input = socket.getInputStream();
+		}catch(IOException e){
+			//todo handle exception
+		}
 	}
 	
 	
 	public void setUsername(String _username){
 		
-		//length check
+		//check length
 		if (_username.length() < 5 || _username.length() > 20){
-			System.out.println("Username either too short or too long (from 5 to 20)");
+			System.out.println("Username is either too short or too long (from 5 to 20)");
 		}
 		
 		//special character check
