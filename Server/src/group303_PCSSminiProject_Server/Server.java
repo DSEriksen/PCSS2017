@@ -37,11 +37,11 @@ public class Server {
 	}
 	
 	public void run() throws Exception {
-		boolean shouldContinue = false;
+		boolean shouldContinue = true;
 		
 		while(shouldContinue == true) {
 			
-			Client newUser = Client(serverSocket.accept());
+			Client newUser = new Client(serverSocket.accept());
 			listOfClients.add(new user(newUser));
 		
 			Thread user = new thread(newUser);
