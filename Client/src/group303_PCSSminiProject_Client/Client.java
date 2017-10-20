@@ -57,7 +57,7 @@ public class Client {
 		
 	}
 	public boolean userCharCheck(String _username){
-		char specChar[] = {'!', '#', '¤', '%', '&', '/', '(', ')', '-', ' '};
+		char specChar[] = {'!', '#', '%', '&', '/', '(', ')', '-', ' '};
 		
 		for (int i = 0; i < _username.length(); i++){
 			for (int j = 0; j < specChar.length; j++){
