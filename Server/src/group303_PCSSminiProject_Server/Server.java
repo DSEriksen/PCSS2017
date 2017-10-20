@@ -18,7 +18,10 @@ public class Server {
 	
 	private int port;
 	private ServerSocket serverSocket;
+	
+
 	// collection of clients class 'implements Runnable' void run() {}
+	private LinkedList<Client> listOfClients; 
 	
 	Server(int _port) throws Exception {
 		this.port = _port;
@@ -34,9 +37,23 @@ public class Server {
 	}
 	
 	public void run() throws Exception {
-		while(true) {
-			serverSocket.close();
+		boolean shouldContinue = false;
+		
+		while(shouldContinue == true) {
+			
+			Client newUser = Client(serverSocket.accept());
+			listOfClients.add(new user(newUser));
+		
+			Thread user = new thread(newUser);
+			
+			user.run;
+			
+			shouldContinue = false;
+			
 		}
+		
+		serverSocket.close();		
+		
 	}
 	
 	public void shutDown() {
