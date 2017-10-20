@@ -42,11 +42,11 @@ public class Server {
 		while(shouldContinue == true) {
 			
 			Client newUser = new Client(serverSocket.accept());
-			listOfClients.add(new user(newUser));
+			listOfClients.add(newUser);
 		
-			Thread user = new thread(newUser);
+			Thread user = new Thread(newUser);
 			
-			user.run;
+			user.run();
 			
 			shouldContinue = false;
 			
