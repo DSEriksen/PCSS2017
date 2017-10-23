@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Server {
 	public static void main(String[] args) {
-		int port = 3002;
+		int port = 3000;
 		
 		try {
 			
@@ -25,6 +25,7 @@ public class Server {
 	
 	Server(int _port) throws Exception {
 		this.port = _port;
+		listOfClients = new LinkedList<Client>();
 		initialise();
 	}
 	
@@ -44,11 +45,11 @@ public class Server {
 			Client newUser = new Client(serverSocket.accept());
 			listOfClients.add(newUser);
 		
-			Thread user = new Thread(newUser);
+			Thread userThread = new Thread(newUser);
 			
-			user.run();
+			userThread.start();
 			
-			shouldContinue = false;
+			shouldContinue = true;
 			
 		}
 		
