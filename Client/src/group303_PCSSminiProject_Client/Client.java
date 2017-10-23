@@ -11,20 +11,20 @@ public class Client {
 	final String defaultHost = "localhost";
 	private Socket socket;
 	private String username;
-	private InputStream input = null;
+	private PrintWriter out = null;
+	private BufferedReader in = null;
 	
 	//Constructor
 	public Client(){
 		username = null;
-		//create socket
 		try{
-		socket = new Socket(defaultHost, PORT);
-		}catch(IOException e){
-			//todo handle exception
-		}
-		//create input stream
-		try{
-			input = socket.getInputStream();
+			//create socket
+			socket = new Socket(defaultHost, PORT);
+			//create writer
+			out = new PrintWriter(socket.getOutputStream(), true);
+			//create reader
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			//
 		}catch(IOException e){
 			//todo handle exception
 		}
