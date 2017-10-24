@@ -81,7 +81,7 @@ public class Client {
 	
 	public boolean validateUsername(String _username){
 		//array of characters that are not allowed to be in username
-		char specChar[] = {'!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '£', '$', '€', '{', '}', '[', ']'};
+		char specChar[] = {'!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']'};
 		//char userToChar[] = _username.toCharArray();
 		
 		//goes through the username and the special characters array, and checks for similarities
