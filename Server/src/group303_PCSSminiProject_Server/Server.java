@@ -18,7 +18,8 @@ public class Server {
 	
 	private int port;
 	private ServerSocket serverSocket;
-	
+	//private BufferedReader inputServer = null;
+	//private PrintWriter outputServer = null;
 
 	// collection of clients class 'implements Runnable' void run() {}
 	private LinkedList<Client> listOfClients; 
@@ -30,11 +31,17 @@ public class Server {
 	}
 	
 	private void initialise() throws Exception {
-		//Socket client = socket.accept();
+		serverSocket = new ServerSocket(port);
+		Socket client = serverSocket.accept();
+
+		//PrintWriter outputServer = new PrintWriter(client.getOutputStream(), true);
 		//BufferedReader inputServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		//socket.close();
-		serverSocket = new ServerSocket(port);
 		System.out.println("Server started on port " + port);
+		
+		OutputStream os = client.getOutputStream();
+		PrintWriter pw = new PrintWriter (os, true);
+		pw.println("Welcome");
 	}
 	
 	public void run() throws Exception {
@@ -43,6 +50,7 @@ public class Server {
 		while(shouldContinue == true) {
 			
 			Client newUser = new Client(serverSocket.accept());
+			
 			listOfClients.add(newUser);
 		
 			Thread userThread = new Thread(newUser);
