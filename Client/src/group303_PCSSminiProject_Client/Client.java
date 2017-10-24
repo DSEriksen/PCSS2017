@@ -111,5 +111,17 @@ public class Client {
 
 	public String getUsername(){return username;}
 
+	
+	public void readServer() {
+		String fromServer;
+		try {
+		fromServer = in.readLine();
+		System.out.println("Server says: " + fromServer);
+		}
+		catch(Exception e) {
+			
+		}
+		
+	}
 }
 
