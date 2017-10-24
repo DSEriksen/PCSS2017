@@ -25,6 +25,7 @@ public class Client {
 			//create reader
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			//	
+			readServer();
 		}catch(Exception e){
 			//todo handle exception
 		}

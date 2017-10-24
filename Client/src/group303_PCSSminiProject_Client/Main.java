@@ -12,7 +12,7 @@ public class Main {
 		client.setUsername("John_Goodman");
 		System.out.println("Username: " + client.getUsername());
 		
-	}
+	}	
 	
 
 	//
