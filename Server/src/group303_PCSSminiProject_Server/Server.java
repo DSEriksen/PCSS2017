@@ -34,7 +34,9 @@ public class Server {
 		serverSocket = new ServerSocket(port);
 		Socket client = serverSocket.accept();
 
-		//PrintWriter outputServer = new PrintWriter(client.getOutputStream(), true);
+		PrintWriter outputServer = new PrintWriter(client.getOutputStream(), true);
+		outputServer.println("Hello, love");
+		
 		//BufferedReader inputServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		//socket.close();
 		System.out.println("Server started on port " + port);
