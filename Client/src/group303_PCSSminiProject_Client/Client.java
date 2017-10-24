@@ -26,6 +26,7 @@ public class Client {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			//	
 			readServer();
+			tellServer();
 		}catch(Exception e){
 			//todo handle exception
 		}
@@ -121,6 +122,17 @@ public class Client {
 		}
 		catch(Exception e) {
 			
+		}
+		
+	}
+	public void tellServer(){
+		String toServer = "Hello back";
+		try{
+			out.println(toServer);
+			System.out.println("Sent: " + toServer);
+		}
+		catch(Exception e){
+			System.out.println("could not send message");
 		}
 		
 	}

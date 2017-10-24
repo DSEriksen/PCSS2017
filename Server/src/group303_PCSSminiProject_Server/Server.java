@@ -18,8 +18,6 @@ public class Server {
 	
 	private int port;
 	private ServerSocket serverSocket;
-	//private BufferedReader inputServer = null;
-	//private PrintWriter outputServer = null;
 
 	// collection of clients class 'implements Runnable' void run() {}
 	private LinkedList<Client> listOfClients; 
@@ -37,7 +35,9 @@ public class Server {
 		PrintWriter outputServer = new PrintWriter(client.getOutputStream(), true);
 		outputServer.println("Hello, love");
 		
-		//BufferedReader inputServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		BufferedReader inputServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		String fromClient = inputServer.readLine();
+		System.out.println("Client sent: " + fromClient);
 		//socket.close();
 		System.out.println("Server started on port " + port);
 		
