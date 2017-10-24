@@ -39,9 +39,6 @@ public class Server {
 		//socket.close();
 		System.out.println("Server started on port " + port);
 		
-		OutputStream os = client.getOutputStream();
-		PrintWriter pw = new PrintWriter (os, true);
-		pw.println("Welcome");
 	}
 	
 	public void run() throws Exception {
