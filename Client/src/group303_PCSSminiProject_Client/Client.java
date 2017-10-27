@@ -27,6 +27,7 @@ public class Client {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			//read user input
 			stdIn = new BufferedReader(new InputStreamReader(System.in));
+			//messaging method
 			communicate();
 		}catch(Exception e){
 			//todo handle exception
@@ -56,13 +57,7 @@ public class Client {
 	}
 	
 	public boolean respondPrompt(boolean ans){
-		
-		if(ans = true){
-			return true;
-		}
-		else{
-			return false;
-		}	
+		return ans;
 	}	
 	
 	public void closeChat(){
@@ -119,33 +114,28 @@ public class Client {
 		tellServer();
 
 		String msg;
-		while(!(msg = stdIn.readLine()).equals("/close") || !msg.equals("/exit") ){
+		boolean done = false;
+		while(!done){
+			msg = stdIn.readLine();
+			if(msg.equals("/exit") || msg.equals("/close")){
+				done = true;
+			}
 			out.println(msg);
+			readServer();
 		}
 	}
 
 	
-	public void readServer() {
+	public void readServer() throws IOException{
 		String fromServer;
-		try {
 		fromServer = in.readLine();
 		System.out.println("Server says: " + fromServer);
-		}
-		catch(Exception e) {
-			
-		}
-		
 	}
-	public void tellServer(){
+
+	public void tellServer()throws IOException{
 		String toServer = "Hello back";
-		try{
-			out.println(toServer);
-			System.out.println("Sent: " + toServer);
-		}
-		catch(Exception e){
-			System.out.println("could not send message");
-		}
-		
+		out.println(toServer);
+		System.out.println("Sent: " + toServer);
 	}
 }
 
