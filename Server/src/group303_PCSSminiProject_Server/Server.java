@@ -37,22 +37,22 @@ public class Server {
 	public void run() throws Exception {
 		boolean shouldContinue = true;
 		
-		while(shouldContinue == true) {
-			
+		while(shouldContinue) {
 			Client newUser = new Client(serverSocket.accept());
-			
 			listOfClients.add(newUser);
+<<<<<<< HEAD
 			
 			getUserList();
 		
+=======
+>>>>>>> 1d0fabd2bdae806126aa05a2f5a62245e75f41e0
 			Thread userThread = new Thread(newUser);
-			
 			userThread.start();
-			
-			shouldContinue = true;
-			
 		}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 1d0fabd2bdae806126aa05a2f5a62245e75f41e0
 		serverSocket.close();
 	}
 	
