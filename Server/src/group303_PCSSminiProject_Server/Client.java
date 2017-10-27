@@ -22,6 +22,18 @@ public class Client implements Runnable {
 			String fromClient = inputServer.readLine();
 			System.out.println("Client sent: " + fromClient);
 		
+			
+			while (true) {
+				
+				outputServer.println("Hello, love");
+				
+				String fromClient = inputServer.readLine();
+				System.out.println("Client sent: " + fromClient);
+				
+				if (fromClient == "exit") {
+					break;
+				}
+			}
 		} catch (Exception e) { System.out.println(e);
 		
 	}
