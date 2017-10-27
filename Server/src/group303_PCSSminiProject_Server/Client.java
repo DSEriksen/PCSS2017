@@ -1,5 +1,8 @@
 package group303_PCSSminiProject_Server;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.*;
 
 public class Client implements Runnable {
@@ -11,6 +14,16 @@ public class Client implements Runnable {
 	}
 	
 	public void run(){
+		try {
+			PrintWriter outputServer = new PrintWriter(connection.getOutputStream(), true);
+			outputServer.println("Hello, love");
+	
+			BufferedReader inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String fromClient = inputServer.readLine();
+			System.out.println("Client sent: " + fromClient);
 		
+		} catch (Exception e) { System.out.println(e);
+		
+	}
 	}
 }

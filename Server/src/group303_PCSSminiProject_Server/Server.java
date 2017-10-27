@@ -30,17 +30,8 @@ public class Server {
 	
 	private void initialise() throws Exception {
 		serverSocket = new ServerSocket(port);
-		Socket client = serverSocket.accept();
-
-		PrintWriter outputServer = new PrintWriter(client.getOutputStream(), true);
-		outputServer.println("Hello, love");
-		
-		BufferedReader inputServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		String fromClient = inputServer.readLine();
-		System.out.println("Client sent: " + fromClient);
-		//socket.close();
 		System.out.println("Server started on port " + port);
-		
+		//socket.close();
 	}
 	
 	public void run() throws Exception {
