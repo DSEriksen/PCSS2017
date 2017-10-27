@@ -23,14 +23,11 @@ public class Client implements Runnable {
 		try {
 			PrintWriter outputServer = new PrintWriter(connection.getOutputStream(), true);
 			BufferedReader inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-<<<<<<< HEAD
-			
+
 			//input = name; 
 			//name = inputServer.readLine();
-			
-=======
 			outputServer.println("Hello, love");
->>>>>>> 1d0fabd2bdae806126aa05a2f5a62245e75f41e0
+
 			while (true) {
 				String fromClient = inputServer.readLine();
 				System.out.println("Client sent: " + fromClient);
