@@ -42,6 +42,8 @@ public class Server {
 			Client newUser = new Client(serverSocket.accept());
 			
 			listOfClients.add(newUser);
+			
+			getUserList();
 		
 			Thread userThread = new Thread(newUser);
 			
@@ -51,11 +53,20 @@ public class Server {
 			
 		}
 		
-		serverSocket.close();		
-		
+		serverSocket.close();
 	}
+	
+	
+	public void getUserList() {
+		for(int i = 0; i < listOfClients.size(); i++) {
+			System.out.println(listOfClients.get(i).getName());
+		}
+	}
+
 	
 	public void shutDown() {
 		// shutdown
 	}
+	
+	
 }

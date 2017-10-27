@@ -13,15 +13,19 @@ public class Client implements Runnable {
 		this.connection = _connection;
 	}
 	
+	private String name = "David Sebastian, Architect of Destruction"; //placeholder name
+	
+	public String getName() {
+		return name;
+	}
+
 	public void run(){
 		try {
 			PrintWriter outputServer = new PrintWriter(connection.getOutputStream(), true);
-			outputServer.println("Hello, love");
-	
 			BufferedReader inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String fromClient = inputServer.readLine();
-			System.out.println("Client sent: " + fromClient);
-		
+			
+			//input = name; 
+			//name = inputServer.readLine();
 			
 			while (true) {
 				
@@ -34,8 +38,9 @@ public class Client implements Runnable {
 					break;
 				}
 			}
-		} catch (Exception e) { System.out.println(e);
+		} catch (Exception e) { System.out.println(e);}
 		
 	}
-	}
+
+  
 }
