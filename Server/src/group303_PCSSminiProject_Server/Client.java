@@ -16,9 +16,7 @@ public class Client implements Runnable {
 	public void run(){
 		try {
 			PrintWriter outputServer = new PrintWriter(connection.getOutputStream(), true);
-
 			BufferedReader inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
 			
 			while (true) {
 				
@@ -26,6 +24,7 @@ public class Client implements Runnable {
 				
 				String fromClient = inputServer.readLine();
 				System.out.println("Client sent: " + fromClient);
+				outputServer.println(fromClient);
 				
 				if (fromClient == "exit") {
 					break;
