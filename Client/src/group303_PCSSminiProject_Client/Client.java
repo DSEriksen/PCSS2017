@@ -13,6 +13,7 @@ public class Client {
 	private String username;
 	private PrintWriter out = null;
 	private BufferedReader in = null;
+	private BufferedReader stdIn = null;
 	
 	//Constructor
 	public Client(){
@@ -24,9 +25,9 @@ public class Client {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			//create reader
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			//	
-			readServer();
-			tellServer();
+			//read user input
+			stdIn = new BufferedReader(new InputStreamReader(System.in));
+			communicate();
 		}catch(Exception e){
 			//todo handle exception
 		}
@@ -112,6 +113,16 @@ public class Client {
 	}
 
 	public String getUsername(){return username;}
+
+	public void communicate() throws IOException {
+		readServer();
+		tellServer();
+
+		String msg;
+		while(!(msg = stdIn.readLine()).equals("/close") || !msg.equals("/exit") ){
+			out.println(msg);
+		}
+	}
 
 	
 	public void readServer() {

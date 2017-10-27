@@ -6,3 +6,5 @@ Client/.settings/*
 Client/.metadata/*
 Server/.settings/*
 Server/.metadata/*
+Server/bin/*
+Client/bin/*
