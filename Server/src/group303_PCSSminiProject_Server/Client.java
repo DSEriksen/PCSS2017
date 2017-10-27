@@ -17,16 +17,14 @@ public class Client implements Runnable {
 		try {
 			PrintWriter outputServer = new PrintWriter(connection.getOutputStream(), true);
 			BufferedReader inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			
+			outputServer.println("Hello, love");
 			while (true) {
-				
-				outputServer.println("Hello, love");
-				
 				String fromClient = inputServer.readLine();
 				System.out.println("Client sent: " + fromClient);
-				outputServer.println(fromClient);
+				String msg = fromClient == null || fromClient.equals("") ? "null" : fromClient;
+				outputServer.println(msg);
 				
-				if (fromClient == "exit") {
+				if (fromClient.equals("/exit")) {
 					break;
 				}
 			}

@@ -111,8 +111,6 @@ public class Client {
 
 	public void communicate() throws IOException {
 		readServer();
-		tellServer();
-
 		String msg;
 		boolean done = false;
 		while(!done){
