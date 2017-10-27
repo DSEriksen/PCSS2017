@@ -8,9 +8,11 @@ import java.net.*;
 public class Client implements Runnable {
 
 	private Socket connection = null;
+	private Server server;
 	
-	Client(Socket _connection) {
+	Client(Socket _connection, Server _server) {
 		this.connection = _connection;
+		this.server = _server;
 	}
 	
 	private String name = "David Sebastian, Architect of Destruction"; //placeholder name
@@ -36,6 +38,10 @@ public class Client implements Runnable {
 				
 				if (fromClient.equals("/exit")) {
 					break;
+				}
+				if (fromClient.equals("/list")){
+					outputServer.println(server.getUserList());
+					
 				}
 			}
 		} catch (Exception e) { System.out.println(e);}

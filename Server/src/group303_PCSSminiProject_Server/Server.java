@@ -37,8 +37,9 @@ public class Server {
 	public void run() throws Exception {
 		boolean shouldContinue = true;
 		
+		
 		while(shouldContinue) {
-			Client newUser = new Client(serverSocket.accept());
+			Client newUser = new Client(serverSocket.accept(), this);
 			listOfClients.add(newUser);
 			
 			getUserList();
@@ -51,10 +52,14 @@ public class Server {
 	}
 	
 	
-	public void getUserList() {
+	public String getUserList() {
+		String list = null;
 		for(int i = 0; i < listOfClients.size(); i++) {
 			System.out.println(listOfClients.get(i).getName());
+			list += listOfClients.get(i).getName();
+			list += "\n";
 		}
+		return list;
 	}
 
 	
