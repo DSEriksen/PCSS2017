@@ -33,8 +33,11 @@ public class Client implements Runnable {
 			}
 			
 			// at this point username is ok
-			outputServer.println("Welcome " + username);
+			//outputServer.println("Welcome " + username);
+			outputServer.println( server.getUserList());
 			
+			recieveMsg();
+			outputServer.println("Now chatting");
 			while (true) {
 				String message = recieveMsg();
 				sendMsg(message);
