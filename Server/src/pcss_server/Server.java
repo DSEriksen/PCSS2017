@@ -1,6 +1,5 @@
-package group303_PCSSminiProject_Server;
+package pcss_server;
 
-import java.io.*;
 import java.net.*;
 import java.util.*;
 
@@ -20,11 +19,11 @@ public class Server {
 	private ServerSocket serverSocket;
 
 	// collection of clients class 'implements Runnable' void run() {}
-	private LinkedList<Client> listOfClients; 
+	private LinkedList<ServerClient> listOfClients;
 	
 	Server(int _port) throws Exception {
 		this.port = _port;
-		listOfClients = new LinkedList<Client>();
+		listOfClients = new LinkedList<ServerClient>();
 		initialise();
 	}
 	
@@ -39,7 +38,7 @@ public class Server {
 		
 
 		while(shouldContinue) {
-			Client newUser = new Client(serverSocket.accept(), this);
+			ServerClient newUser = new ServerClient(serverSocket.accept(), this);
 			listOfClients.add(newUser);
 			
 			getUserList();

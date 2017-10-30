@@ -1,8 +1,4 @@
-package group303_PCSSminiProject_Client;
-
-import java.io.*;
-import java.net.*;
-import java.util.*;
+package pcss_client;
 
 public class Main {
 	public static void main(String[] args) {

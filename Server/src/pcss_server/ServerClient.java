@@ -1,11 +1,11 @@
-package group303_PCSSminiProject_Server;
+package pcss_server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
-public class Client implements Runnable {
+public class ServerClient implements Runnable {
 
 	private Socket connection = null;
 	private Server server;
@@ -13,7 +13,7 @@ public class Client implements Runnable {
 	private BufferedReader inputServer;
 	private String username = "";
 	
-	Client(Socket _connection, Server _server) {
+	ServerClient(Socket _connection, Server _server) {
 		this.connection = _connection;
 		this.server = _server;
 	}
