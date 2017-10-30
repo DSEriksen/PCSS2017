@@ -37,7 +37,7 @@ public class Server {
 	public void run() throws Exception {
 		boolean shouldContinue = true;
 		
-		
+
 		while(shouldContinue) {
 			Client newUser = new Client(serverSocket.accept(), this);
 			listOfClients.add(newUser);

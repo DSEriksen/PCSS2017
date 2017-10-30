@@ -9,6 +9,9 @@ public class Client implements Runnable {
 
 	private Socket connection = null;
 	private Server server;
+	private PrintWriter outputServer;
+	private BufferedReader inputServer;
+	private String userName;
 	
 	Client(Socket _connection, Server _server) {
 		this.connection = _connection;
@@ -23,30 +26,54 @@ public class Client implements Runnable {
 
 	public void run(){
 		try {
-			PrintWriter outputServer = new PrintWriter(connection.getOutputStream(), true);
-			BufferedReader inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			
+			// "send username"
+			//username = read()
+			//username = username;
+			
+			outputServer = new PrintWriter(connection.getOutputStream(), true);
+			inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
 			//input = name; 
 			//name = inputServer.readLine();
-			outputServer.println("Hello, love");
+			sendMsg("Hello, love, please enter your username");
+			userName = recieveMsg();
+			sendMsg("Your username is: " + userName);
+			server.getUserList();
+			sendMsg(server.getUserList());
+			
 
 			while (true) {
-				String fromClient = inputServer.readLine();
-				System.out.println("Client sent: " + fromClient);
-				String msg = fromClient == null || fromClient.equals("") ? "null" : fromClient;
-				outputServer.println(msg);
+				String message = recieveMsg();
+				sendMsg(message);
+
 				
-				if (fromClient.equals("/exit")) {
-					break;
-				}
-				if (fromClient.equals("/list")){
-					outputServer.println(server.getUserList());
-					
-				}
+
+				
+				
 			}
 		} catch (Exception e) { System.out.println(e);}
 		
+		
+	}
+	
+	public void sendMsg (String msg) {
+		outputServer.println(msg);
+	}
+	
+	public String recieveMsg() throws Exception{
+		String fromClient = inputServer.readLine();
+		System.out.println("Client sent: " + fromClient);
+		String msg = fromClient == null || fromClient.equals("") ? "null" : fromClient;
+		
+		if (fromClient.equals("/exit")) {
+			//break;
+		}
+		if (fromClient.equals("/list")){
+			outputServer.println(server.getUserList());
+		}
+		
+		return msg;
 	}
 
-  
 }
