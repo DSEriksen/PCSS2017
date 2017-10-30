@@ -54,13 +54,12 @@ public class Server {
 
 	
 	public String getUserList() {
-		String list = null;
+		StringBuffer list = new StringBuffer();
 		for(int i = 0; i < listOfClients.size(); i++) {
 			System.out.println(listOfClients.get(i).getUsername());
-			list += listOfClients.get(i).getUsername();
-			list += "\n";
+			list.append(listOfClients.get(i).getUsername()).append("\n");
 		}
-		return list;
+		return list.toString();
 	}
 
 	
