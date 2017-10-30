@@ -51,12 +51,13 @@ public class Server {
 		serverSocket.close();
 	}
 	
+
 	
 	public String getUserList() {
 		String list = null;
 		for(int i = 0; i < listOfClients.size(); i++) {
-			System.out.println(listOfClients.get(i).getName());
-			list += listOfClients.get(i).getName();
+			System.out.println(listOfClients.get(i).getUsername());
+			list += listOfClients.get(i).getUsername();
 			list += "\n";
 		}
 		return list;

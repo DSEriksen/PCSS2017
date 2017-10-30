@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("CLIENT");
 		Client client = new Client();
-		client.setUsername("John_Goodman");
+		//client.setUsername("John_Goodman!");
 		System.out.println("Username: " + client.getUsername());
 		
 	}	
