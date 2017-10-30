@@ -33,6 +33,7 @@ public class Client {
 			//todo handle exception
 		}
 	}
+
 	
 	
 
@@ -73,10 +74,21 @@ public class Client {
 			if(msg.equals("/exit") || msg.equals("/close")){
 				done = true;
 			}
-			out.println(msg);
+			System.out.println(msg.length() + " Characters");
+			if(msg.length() < 25) {
+				out.println(msg);
+				
+			}
+			else if(msg.length() > 25) {
+				System.out.println("Message too long");
+			}
 			readServer();
 		}
 	}
+	
+
+	
+	
 
 	
 	public void readServer() throws IOException{
