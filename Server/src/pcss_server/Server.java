@@ -56,7 +56,7 @@ public class Server {
 		StringBuffer list = new StringBuffer();
 		for(int i = 0; i < listOfClients.size(); i++) {
 			System.out.println(listOfClients.get(i).getUsername());
-			list.append(listOfClients.get(i).getUsername()).append("\n");
+			list.append(listOfClients.get(i).getUsername()).append(" ");
 		}
 		return list.toString();
 	}
