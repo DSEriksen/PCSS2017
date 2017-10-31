@@ -30,28 +30,46 @@ public class ServerClient implements Runnable {
 			
 			// handle invalid username here
 			while(!checkUsername(username)) {
-				sendMsg("Please enter a different name: ");
+				outputServer.println("Please enter a different name: ");
 				username =  recieveMsg();
 			}
 			
+			sendMsg("would you like to join the lobby or select a user to chat with? (w/c)");
+			String choice = recieveMsg();
+			
+			if(choice.equals("w")) {
+				sendMsg("Waiting for a chat partner");
+				recieveMsg();
+				
+			} else if(choice.equals("c")) {
+				outputServer.println( server.getUserList() + " please select a user to chat with");
+				sUser = Integer.parseInt(recieveMsg());
+				
+				selectUser(sUser);
+				
+			} else {
+				sendMsg("Go fuck yourself");
+			}
 			// at this point username is ok
 			//outputServer.println("Welcome " + username);
-			outputServer.println( server.getUserList() + " please select a user to chat with");
-			sUser = Integer.parseInt(recieveMsg());
+
 			
-			selectUser(sUser);
-			
-			recieveMsg();
 			outputServer.println("Now chatting");
 			while (true) {
 				String message = recieveMsg();
-				sendMsg(message);
+				sendMsgChat(message);
 			}
 		} catch (Exception e) { System.out.println(e);}
 	}
 	
 	public void sendMsg (String msg) {
 		outputServer.println(msg);
+	
+	}
+	
+	public void sendMsgChat(String msg) {
+		cUser.outputServer.println(msg);
+		
 	}
 	
 	public String recieveMsg() throws Exception{
@@ -68,6 +86,7 @@ public class ServerClient implements Runnable {
 		
 		return msg;
 	}
+	
 	
 	public void selectUser(int sUser) throws Exception{
 		ServerClient cUser = new ServerClient(connection, server);
