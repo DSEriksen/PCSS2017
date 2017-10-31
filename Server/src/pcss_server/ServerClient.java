@@ -33,28 +33,12 @@ public class ServerClient implements Runnable {
 				outputServer.println("Please enter a different name: ");
 				username =  recieveMsg();
 			}
-			
-			sendMsg("would you like to join the lobby or select a user to chat with? (w/c)");
-			String choice = recieveMsg();
-			
-			if(choice.equals("w")) {
-				sendMsg("Waiting for a chat partner");
-				recieveMsg();
-				
-			} else if(choice.equals("c")) {
-				outputServer.println( server.getUserList() + " please select a user to chat with");
-				sUser = Integer.parseInt(recieveMsg());
-				
-				selectUser(sUser);
-				
-			} else {
-				sendMsg("Go fuck yourself");
-			}
-			// at this point username is ok
-			//outputServer.println("Welcome " + username);
 
-			
-			outputServer.println("Now chatting");
+			// at this point username is ok
+			//user is sent to lobby
+			goToLobby();
+
+			//outputServer.println("Now chatting");
 			while (true) {
 				String message = recieveMsg();
 				sendMsgChat(message);
@@ -68,7 +52,7 @@ public class ServerClient implements Runnable {
 	}
 	
 	public void sendMsgChat(String msg) {
-		cUser.outputServer.println(msg);
+		cUser.sendMsg(msg);
 		
 	}
 	
@@ -86,15 +70,31 @@ public class ServerClient implements Runnable {
 		
 		return msg;
 	}
+
+	public void goToLobby()throws Exception{
+		outputServer.println("Would you like to join the lobby or select a user to chat with? (w/c)");
+		boolean choiceMade = false;
+		String choice;
+		while(!choiceMade){
+			choice = recieveMsg();
+			if(choice.equals("w")) {
+				outputServer.println("Waiting for a chat partner. Press enter to continue");
+				choiceMade = true;
+			} else if(choice.equals("c")) {
+				outputServer.println( server.getUserList() + " please select a user to chat with");
+				sUser = Integer.parseInt(recieveMsg());
+				selectUser(sUser);
+				choiceMade = true;
+			}
+		}
+	}
 	
 	
 	public void selectUser(int sUser) throws Exception{
 		ServerClient cUser = new ServerClient(connection, server);
 		cUser.username = server.getlistOfClients().get(sUser).getUsername();
 		cUser.cUser = this;
-		System.out.println("the result was: " + sUser);
-		
-		System.out.println(cUser.username);
+		outputServer.println("You have selected " + cUser.getUsername() + "! Start chatting!");
 	}
 	
 	public String getUsername() {
@@ -115,7 +115,7 @@ public class ServerClient implements Runnable {
 
 		//special character check
 		//array of characters that are not allowed to be in username
-		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']', 'æ', 'ø', 'å'};
+		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']'};
 		//char userToChar[] = _username.toCharArray();
 
 		//goes through the username and the special characters array, and checks for similarities
