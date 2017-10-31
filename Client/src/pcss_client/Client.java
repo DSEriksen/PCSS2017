@@ -73,7 +73,7 @@ public class Client {
 			if(msg.equals("/exit") || msg.equals("/close")){
 				done = true;
 			}
-			System.out.println(msg.length() + " Characters");
+		//	System.out.println(msg.length() + " Characters");
 			if(msg.length() < 25) {
 				out.println(msg);
 				

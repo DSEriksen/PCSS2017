@@ -12,6 +12,8 @@ public class ServerClient implements Runnable {
 	private PrintWriter outputServer;
 	private BufferedReader inputServer;
 	private String username = "";
+	private int sUser;
+	private ServerClient cUser = null;
 	
 	ServerClient(Socket _connection, Server _server) {
 		this.connection = _connection;
@@ -29,12 +31,15 @@ public class ServerClient implements Runnable {
 			// handle invalid username here
 			while(!checkUsername(username)) {
 				sendMsg("Please enter a different name: ");
-				username = recieveMsg();
+				username =  recieveMsg();
 			}
 			
 			// at this point username is ok
 			//outputServer.println("Welcome " + username);
-			outputServer.println( server.getUserList());
+			outputServer.println( server.getUserList() + " please select a user to chat with");
+			sUser = Integer.parseInt(recieveMsg());
+			
+			selectUser(sUser);
 			
 			recieveMsg();
 			outputServer.println("Now chatting");
@@ -64,6 +69,15 @@ public class ServerClient implements Runnable {
 		return msg;
 	}
 	
+	public void selectUser(int sUser) throws Exception{
+		ServerClient cUser = new ServerClient(connection, server);
+		cUser.username = server.getlistOfClients().get(sUser).getUsername();
+		cUser.cUser = this;
+		System.out.println("the result was: " + sUser);
+		
+		System.out.println(cUser.username);
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -82,7 +96,7 @@ public class ServerClient implements Runnable {
 
 		//special character check
 		//array of characters that are not allowed to be in username
-		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']'};
+		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']', 'æ', 'ø', 'å'};
 		//char userToChar[] = _username.toCharArray();
 
 		//goes through the username and the special characters array, and checks for similarities

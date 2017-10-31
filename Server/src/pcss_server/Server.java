@@ -55,10 +55,16 @@ public class Server {
 	public String getUserList() {
 		StringBuffer list = new StringBuffer();
 		for(int i = 0; i < listOfClients.size(); i++) {
-			System.out.println(listOfClients.get(i).getUsername());
-			list.append(listOfClients.get(i).getUsername()).append(" ");
+			System.out.println(i + " " + listOfClients.get(i).getUsername());
+			list.append(i + " " + listOfClients.get(i).getUsername()).append(" ");
 		}
 		return list.toString();
+	}
+	
+	
+	public LinkedList<ServerClient> getlistOfClients() {
+		
+		return listOfClients;
 	}
 
 	
