@@ -68,5 +68,7 @@ public class Server {
 		// shutdown
 	}
 	
-	
+	public LinkedList<ServerClient> getUsers() {
+		return listOfClients;
+	}
 }

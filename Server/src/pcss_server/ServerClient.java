@@ -14,6 +14,7 @@ public class ServerClient implements Runnable {
 	private String username = "";
 	private int sUser;
 	private ServerClient cUser = null;
+	private boolean request = false;
 	
 	ServerClient(Socket _connection, Server _server) {
 		this.connection = _connection;
@@ -34,11 +35,12 @@ public class ServerClient implements Runnable {
 				username =  recieveMsg();
 			}
 
-			// at this point username is ok
-			//user is sent to lobby
+			// user is sent to lobby
 			goToLobby();
-
-			//outputServer.println("Now chatting");
+			
+			if (!request)
+				outputServer.println("Now chatting...");
+			
 			while (true) {
 				String message = recieveMsg();
 				sendMsgChat(message);
@@ -48,12 +50,10 @@ public class ServerClient implements Runnable {
 	
 	public void sendMsg (String msg) {
 		outputServer.println(msg);
-	
 	}
 	
 	public void sendMsgChat(String msg) {
 		cUser.sendMsg(msg);
-		
 	}
 	
 	public String recieveMsg() throws Exception{
@@ -74,27 +74,28 @@ public class ServerClient implements Runnable {
 	public void goToLobby()throws Exception{
 		outputServer.println("Would you like to join the lobby or select a user to chat with? (w/c)");
 		boolean choiceMade = false;
+		
+		// var for storing input
 		String choice;
-		while(!choiceMade){
+		
+		while(!choiceMade && !request){
 			choice = recieveMsg();
-			if(choice.equals("w")) {
-				outputServer.println("Waiting for a chat partner. Press enter to continue");
-				choiceMade = true;
-			} else if(choice.equals("c")) {
-				outputServer.println( server.getUserList() + " please select a user to chat with");
+			
+			if(choice.equals("c")) {
+				outputServer.println(server.getUserList() + " please select a user to chat with");
 				sUser = Integer.parseInt(recieveMsg());
 				selectUser(sUser);
 				choiceMade = true;
+			} else {
+				outputServer.println(server.getUserList() + " please select a user to chat with. ENTER to refresh or 'c' to pick someone");
 			}
 		}
 	}
 	
 	
-	public void selectUser(int sUser) throws Exception{
-		ServerClient cUser = new ServerClient(connection, server);
-		cUser.username = server.getlistOfClients().get(sUser).getUsername();
-		cUser.cUser = this;
-		outputServer.println("You have selected " + cUser.getUsername() + "! Start chatting!");
+	public void selectUser(int userIndex) throws Exception{
+		this.cUser = server.getUsers().get(userIndex);
+		cUser.sendRequest(this);
 	}
 	
 	public String getUsername() {
@@ -103,6 +104,12 @@ public class ServerClient implements Runnable {
 	public void setUsername(String _username) {
 		username = _username;
 	}
+	
+	public void sendRequest(ServerClient sender) {
+		request = true;
+		this.cUser = sender;
+	}
+	
 	public boolean checkUsername(String _username){
 
 		boolean validUser = true;
@@ -128,14 +135,5 @@ public class ServerClient implements Runnable {
 			}
 		}
 		return validUser;
-		
-		/*// Alternative solution to going through the string and characters
-		for (char c: userToChar)
-			for (char z:specChar){
-				if (_username.charAt(c) == specChar[z]){
-					return false;
-			}
-		}
-		*/
 	}
 }
