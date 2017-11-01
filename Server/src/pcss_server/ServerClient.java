@@ -39,7 +39,7 @@ public class ServerClient implements Runnable {
 			goToLobby();
 			
 			if (!request)
-				outputServer.println("Now chatting...");
+				outputServer.println("Now chatting with " + username+". Press ENTER to refresh chat");
 			
 			while (true) {
 				String message = recieveMsg();
@@ -58,7 +58,7 @@ public class ServerClient implements Runnable {
 	
 	public String recieveMsg() throws Exception{
 		String fromClient = inputServer.readLine();
-		System.out.println("Client sent: " + fromClient);
+		System.out.println(username+ " sent: " + fromClient);
 		String msg = fromClient == null || fromClient.equals("") ? "null" : fromClient;
 		
 		if (fromClient.equals("/exit")) {
