@@ -26,7 +26,7 @@ public class ServerClient implements Runnable {
 			outputServer = new PrintWriter(connection.getOutputStream(), true);
 			inputServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			
-			sendMsg("Enter username");
+			sendMsg("Enter username: ");
 			username = recieveMsg();
 			
 			// handle invalid username here
@@ -72,7 +72,7 @@ public class ServerClient implements Runnable {
 	}
 
 	public void goToLobby()throws Exception{
-		outputServer.println("Would you like to join the lobby or select a user to chat with? (w/c)");
+		outputServer.println("Would you like to join the lobby or select a user to chat with? (join/select)");
 		boolean choiceMade = false;
 		
 		// var for storing input
@@ -81,13 +81,13 @@ public class ServerClient implements Runnable {
 		while(!choiceMade && !request){
 			choice = recieveMsg();
 			
-			if(choice.equals("c")) {
+			if(choice.equals("select")) {
 				outputServer.println(server.getUserList() + " please select a user to chat with");
 				sUser = Integer.parseInt(recieveMsg());
 				selectUser(sUser);
 				choiceMade = true;
 			} else {
-				outputServer.println(server.getUserList() + " please select a user to chat with. ENTER to refresh or 'c' to pick someone");
+				outputServer.println(server.getUserList() + " please select a user to chat with. ENTER to refresh or 'select' to pick someone");
 			}
 		}
 	}

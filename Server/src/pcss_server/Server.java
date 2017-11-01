@@ -50,10 +50,11 @@ public class Server {
 
 	
 	public String getUserList() {
+		String newline = "\r\n";
 		StringBuffer list = new StringBuffer();
 		for(int i = 0; i < listOfClients.size(); i++) {
 			System.out.println(i + " " + listOfClients.get(i).getUsername());
-			list.append(i + " " + listOfClients.get(i).getUsername()).append(" ");
+			list.append("[["+i+"]" + ": " + listOfClients.get(i).getUsername()+"]").append(" ");
 		}
 		return list.toString();
 	}
