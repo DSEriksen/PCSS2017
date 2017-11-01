@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
- //Yet another test
+
 	//Attributes
 	final int PORT = 3000;
 	final String defaultHost = "localhost";
@@ -30,38 +30,10 @@ public class Client {
 			//messaging method
 			communicate();
 		}catch(Exception e){
-			//todo handle exception
+		
 		}
 	}
 
-	
-	
-
-	
-	public void choosePartner(int user){
-		
-	}
-	
-	public void addUserToList(){
-		
-	}
-	
-	public boolean respondPrompt(boolean ans){
-		return ans;
-	}	
-	
-	public void closeChat(){
-		
-	}
-	
-	public void exit(){
-		
-	}
-	
-	public void getUsers(){
-		
-	}
-	
 	
 	public String getUsername(){return username;}
 
@@ -86,10 +58,6 @@ public class Client {
 		}
 	}
 	
-
-	
-	
-
 	
 	public void readServer() throws IOException{
 		String fromServer;
