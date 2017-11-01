@@ -13,6 +13,7 @@ public class Client {
 	private PrintWriter out = null;
 	private BufferedReader in = null;
 	private BufferedReader stdIn = null;
+	private boolean partnerConnected = false;
 	
 	//Constructor
 	public Client(){
@@ -93,7 +94,15 @@ public class Client {
 	public void readServer() throws IOException{
 		String fromServer;
 		fromServer = in.readLine();
+		if(fromServer.contains("Now chatting with")) {
+			partnerConnected = true;
+		}
+	if(partnerConnected == true) {
+		System.out.println("Partner says: " +fromServer);
+	}
+	else{
 		System.out.println("Server says: " + fromServer);
+	}
 	}
 
 	public void tellServer()throws IOException{
