@@ -9,6 +9,7 @@ public class ServerClient implements Runnable {
 
 	private Socket connection = null;
 	private Server server;
+	private final int userIndex;
 	private PrintWriter outputServer;
 	private BufferedReader inputServer;
 	private String username = "";
@@ -16,9 +17,10 @@ public class ServerClient implements Runnable {
 	private ServerClient cUser = null;
 	private boolean request = false;
 	
-	ServerClient(Socket _connection, Server _server) {
+	ServerClient(Socket _connection, Server _server, int _userIndex) {
 		this.connection = _connection;
 		this.server = _server;
+		this.userIndex = _userIndex;
 	}
 	
 	public void run(){
@@ -74,20 +76,27 @@ public class ServerClient implements Runnable {
 	public void goToLobby()throws Exception{
 		outputServer.println("Would you like to join the lobby or select a user to chat with? (join/select)");
 		boolean choiceMade = false;
-		
+		 	
 		// var for storing input
 		String choice;
 		
 		while(!choiceMade && !request){
 			choice = recieveMsg();
+			String userList = server.getUserList();
+			String userSearch = userList.substring(
+					userList.indexOf(Integer.toString(userIndex)),
+					userList.indexOf(Integer.toString(userIndex)) + username.length()+4		
+					);
 			
 			if(choice.equals("select")) {
-				outputServer.println(server.getUserList() + " please select a user to chat with");
+
+						
+				outputServer.println(userList.replace(userSearch,"")+ " | please select a user to chat with");	
 				sUser = Integer.parseInt(recieveMsg());
 				if (selectUser(sUser))
 					choiceMade = true;
 			} else {
-				outputServer.println(server.getUserList() + " please select a user to chat with. ENTER to refresh or 'select' to pick someone");
+				outputServer.println(userList.replace(userSearch,"") + " | please select a user to chat with. ENTER to refresh or 'select' to pick someone");
 			}
 		}
 	}
@@ -133,7 +142,7 @@ public class ServerClient implements Runnable {
 
 		//special character check
 		//array of characters that are not allowed to be in username
-		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']'};
+		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 		//char userToChar[] = _username.toCharArray();
 
 		//goes through the username and the special characters array, and checks for similarities

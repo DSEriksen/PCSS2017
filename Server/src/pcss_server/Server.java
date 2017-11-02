@@ -19,6 +19,7 @@ public class Server {
 	private ServerSocket serverSocket;
 	// collection of clients class 'implements Runnable' void run() {}
 	private LinkedList<ServerClient> listOfClients;
+	private int userIndex = 0;
 	
 	Server(int _port) throws Exception {
 		this.port = _port;
@@ -36,8 +37,9 @@ public class Server {
 		boolean shouldContinue = true;
 
 		while(shouldContinue) {
-			ServerClient newUser = new ServerClient(serverSocket.accept(), this);
+			ServerClient newUser = new ServerClient(serverSocket.accept(), this, userIndex);
 			listOfClients.add(newUser);
+			userIndex++;
 			
 			getUserList();
 
@@ -53,7 +55,7 @@ public class Server {
 		StringBuffer list = new StringBuffer();
 		for(int i = 0; i < listOfClients.size(); i++) {
 			System.out.println(i + " " + listOfClients.get(i).getUsername());
-			list.append("["+i+"]" + ": " + listOfClients.get(i).getUsername()+",").append(" ");
+			list.append(i + ": " + listOfClients.get(i).getUsername()+",").append(" ");
 		}
 		return list.toString();
 	}
@@ -63,7 +65,6 @@ public class Server {
 		return listOfClients;
 	}
 
-	
 	public void shutDown() {
 		// shutdown
 	}

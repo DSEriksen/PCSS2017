@@ -29,9 +29,7 @@ public class Client {
 			stdIn = new BufferedReader(new InputStreamReader(System.in));
 			//messaging method
 			communicate();
-		}catch(Exception e){
-		
-		}
+		}catch(Exception e){}
 	}
 
 	
