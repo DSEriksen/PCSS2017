@@ -84,18 +84,29 @@ public class ServerClient implements Runnable {
 			if(choice.equals("select")) {
 				outputServer.println(server.getUserList() + " please select a user to chat with");
 				sUser = Integer.parseInt(recieveMsg());
-				selectUser(sUser);
-				choiceMade = true;
+				if (selectUser(sUser))
+					choiceMade = true;
 			} else {
 				outputServer.println(server.getUserList() + " please select a user to chat with. ENTER to refresh or 'select' to pick someone");
 			}
 		}
 	}
 	
+	// java pcss_client.Main
 	
-	public void selectUser(int userIndex) throws Exception{
-		this.cUser = server.getUsers().get(userIndex);
-		cUser.sendRequest(this);
+	boolean selectUser(int userIndex) throws Exception{
+		ServerClient targetUser = server.getUsers().get(userIndex);
+		System.out.println(this.getUsername() + " trying to connect to " + targetUser.getUsername());
+		
+		if (!this.username.equals(targetUser.getUsername())) {
+			this.cUser = targetUser;
+			cUser.sendRequest(this);
+			return true;
+		}
+
+		System.out.println("user tried to connect to themself");
+		sendMsg("You cannot chat with yourself. Press ENTER to return to lobby");
+		return false;
 	}
 	
 	public String getUsername() {
