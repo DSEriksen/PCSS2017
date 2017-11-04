@@ -39,6 +39,19 @@ public class Client {
 		readServer();
 		String msg;
 		boolean done = false;
+		
+		(new Thread() {
+			public void run() {
+				while(true) {
+					try {
+						readServer();
+					} catch (IOException e) {
+						break;					
+					}
+				}
+			}
+		}).start();
+		
 		while(!done){
 			msg = stdIn.readLine();
 			if(msg.equals("/exit") || msg.equals("/close")){
@@ -52,7 +65,7 @@ public class Client {
 			else if(msg.length() > 25) {
 				System.out.println("Message too long");
 			}
-			readServer();
+		
 		}
 	}
 	
