@@ -8,15 +8,14 @@ public class Server {
 		int port = 3000;
 		
 		try {
-			
 			Server server = new Server(port);
 			server.run();
-		
 		} catch (Exception e) { System.out.println(e); }
 	}
 	
 	private int port;
 	private ServerSocket serverSocket;
+	
 	// collection of clients class 'implements Runnable' void run() {}
 	private LinkedList<ServerClient> listOfClients;
 	private int userIndex = 0;

@@ -40,8 +40,7 @@ public class ServerClient implements Runnable {
 			// user is sent to lobby
 			goToLobby();
 			
-			if (!request)
-				outputServer.println("Now chatting with " + username+". Press ENTER to refresh chat");
+			outputServer.println("Now chatting with " + cUser.getUsername()  +". Press ENTER to refresh chat");
 			
 			while (true) {
 				String message = recieveMsg();
@@ -74,7 +73,7 @@ public class ServerClient implements Runnable {
 	}
 
 	public void goToLobby()throws Exception{
-		outputServer.println("Would you like to join the lobby or select a user to chat with? (join/select)");
+		outputServer.println("Press ENTER to refresh list of users");
 		boolean choiceMade = false;
 		 	
 		// var for storing input
@@ -91,12 +90,12 @@ public class ServerClient implements Runnable {
 			if(choice.equals("select")) {
 
 						
-				outputServer.println(userList.replace(userSearch,"")+ " | please select a user to chat with");	
+				outputServer.println(userList.replace(userSearch,"")+ " | enter Id of selected user");	
 				sUser = Integer.parseInt(recieveMsg());
 				if (selectUser(sUser))
 					choiceMade = true;
 			} else {
-				outputServer.println(userList.replace(userSearch,"") + " | please select a user to chat with. ENTER to refresh or 'select' to pick someone");
+				outputServer.println(userList.replace(userSearch,"") + " | Press ENTER to refresh - type 'select' to pick a chat partner");
 			}
 		}
 	}
@@ -131,7 +130,6 @@ public class ServerClient implements Runnable {
 	}
 	
 	public boolean checkUsername(String _username){
-
 		boolean validUser = true;
 		//method for handling an invalid username. Can contain more actions if neccesary.
 		//check length
@@ -143,7 +141,6 @@ public class ServerClient implements Runnable {
 		//special character check
 		//array of characters that are not allowed to be in username
 		char specChar[] = {'?','!', '#', '%', '&', '/', '(', ')', '-', ' ', '^', '*', '.', ',', '@', '$', '{', '}', '[', ']', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-		//char userToChar[] = _username.toCharArray();
 
 		//goes through the username and the special characters array, and checks for similarities
 		for (int i = 0; i < _username.length(); i++){

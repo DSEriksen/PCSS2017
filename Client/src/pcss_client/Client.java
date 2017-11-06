@@ -57,15 +57,13 @@ public class Client {
 			if(msg.equals("/exit") || msg.equals("/close")){
 				done = true;
 			}
-		//	System.out.println(msg.length() + " Characters");
+			
 			if(msg.length() < 25) {
 				out.println(msg);
 				
-			}
-			else if(msg.length() > 25) {
+			} else if(msg.length() > 25) {
 				System.out.println("Message too long");
 			}
-		
 		}
 	}
 	
@@ -73,15 +71,16 @@ public class Client {
 	public void readServer() throws IOException{
 		String fromServer;
 		fromServer = in.readLine();
+		
 		if(fromServer.contains("Now chatting with")) {
 			partnerConnected = true;
 		}
-	if(partnerConnected == true) {
-		System.out.println("Partner says: " +fromServer);
-	}
-	else{
-		System.out.println("Server says: " + fromServer);
-	}
+		
+		if(partnerConnected == true) {
+			System.out.println("Partner says: " +fromServer);
+		} else{
+			System.out.println("Server says: " + fromServer);
+		}
 	}
 
 	public void tellServer()throws IOException{
